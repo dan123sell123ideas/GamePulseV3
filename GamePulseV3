@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>M1000 Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.container {
+    padding: 20px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+button {
+    background: #38bdf8;
+    border: none;
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.cart {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #38bdf8;
+    padding: 15px;
+    border-radius: 50%;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.profile {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">M1000 STORE</div>
+    <div id="cartCount">Cart: 0</div>
+</header>
+
+<div class="container">
+
+<h2>🔥 Featured Products</h2>
+
+<div class="products" id="products"></div>
+
+<div class="profile">
+    <h3>👤 Owner Info</h3>
+    <p>Name: M1000</p>
+    <p>Email: 24rileyda@greigcityacademy.co.uk</p>
+    <p>Discord: NLnja3430</p>
+</div>
+
+</div>
+
+<div class="cart" onclick="viewCart()">🛒</div>
+
+<script>
+const products = [
+    {name: "Premium Pack", price: 20},
+    {name: "Ultra Bundle", price: 50},
+    {name: "Starter Kit", price: 10},
+    {name: "Pro Access", price: 100}
+];
+
+let cart = [];
+
+function renderProducts() {
+    const container = document.getElementById("products");
+    container.innerHTML = "";
+
+    products.forEach((p, index) => {
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <h3>${p.name}</h3>
+            <p>£${p.price}</p>
+            <button onclick="addToCart(${index})">Add to Cart</button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+function addToCart(index) {
+    cart.push(products[index]);
+    document.getElementById("cartCount").innerText = "Cart: " + cart.length;
+}
+
+function viewCart() {
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    alert("Items: " + cart.length + "\\nTotal: £" + total);
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
